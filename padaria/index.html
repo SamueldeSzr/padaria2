@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Padaria  — pães fresquinhos, doces e salgados feitos com carinho.">
+  <link rel="icon" type="image/png" href="img/ICONE.png">
+  <title>Padaria artesanal</title>
+  <style>
+    :root { --ink:#3a281e; --cream:#fff8ed; --bread:#c8783d; --red:#9b4330; --muted:#725d4d; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); background:var(--cream); font-family:Georgia, 'Times New Roman', serif; }
+    header { background:#fffdf8; border-bottom:1px solid #eadccc; }
+    .top { max-width:1120px; margin:auto; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .brand { display:flex; align-items:center; text-decoration:none; }
+    .brand img { display:block; width:auto; height:56px; }
+    nav { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px 20px; }
+    nav a { color:var(--ink); font:600 .96rem Arial,sans-serif; text-decoration:none; }
+    nav a:hover { color:var(--red); }
+    .hero { min-height:440px; display:grid; place-items:center; text-align:center; padding:72px 24px; background:linear-gradient(90deg,rgba(43,27,17,.69),rgba(43,27,17,.23)), linear-gradient(135deg,#8b4b2e,#d6a36c 55%,#f0d5aa); color:white; }
+    .hero-inner { max-width:720px; }
+    .eyebrow { text-transform:uppercase; letter-spacing:.16em; font:700 .78rem Arial,sans-serif; }
+    h1 { margin:14px 0; font-size:clamp(2.5rem,7vw,4.7rem); line-height:1.02; }
+    .hero p { font-size:1.2rem; line-height:1.6; margin:0 auto 26px; max-width:600px; }
+    .button,.action-button { border-radius:5px; font:700 .95rem Arial,sans-serif; text-decoration:none; transition:background .18s ease,color .18s ease,border-color .18s ease; }
+    .button { display:inline-block; background:#fff8ed; color:var(--red); padding:13px 21px; }
+    .button:hover { background:#f1e2cf; }
+    .action-button { padding:11px 16px; border:1px solid transparent; cursor:pointer; }
+    .buy-button { align-self:flex-start; margin-top:14px; background:var(--red); color:white; }
+    .buy-button:hover { background:#783322; }
+    main { max-width:1120px; margin:auto; padding:64px 24px; }
+    .intro { text-align:center; max-width:680px; margin:0 auto 38px; }
+    h2 { font-size:2rem; margin:0 0 12px; }
+    .intro p,.card p { color:var(--muted); line-height:1.6; }
+    .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .card { display:block; background:#fffdf8; border:1px solid #eadccc; border-radius:9px; padding:25px; color:var(--ink); text-decoration:none; transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease; }
+    a.card:hover { transform:translateY(-3px); border-color:var(--bread); box-shadow:0 6px 18px rgba(58,40,30,.1); }
+    a.card:focus-visible,.button:focus-visible,.action-button:focus-visible,nav a:focus-visible { outline:3px solid var(--bread); outline-offset:3px; }
+    .icon { font-size:1.8rem; }
+    .card h3 { margin:12px 0 8px; font-size:1.35rem; }
+    .card p { margin:0; }
+    .card-action { display:inline-block; margin-top:16px; color:var(--red); font:700 .9rem Arial,sans-serif; }
+    .callout { margin-top:48px; padding:28px; border-radius:9px; background:#f1e2cf; text-align:center; }
+    .callout p { color:var(--muted); }
+    .details { margin-top:24px; padding:26px 30px; border:1px solid #eadccc; border-radius:9px; background:#fffdf8; scroll-margin-top:24px; }
+    .details:target { border-color:var(--bread); }
+    .details h2 { font-size:1.5rem; }
+    .details p { color:var(--muted); line-height:1.6; margin-bottom:0; }
+    .menu-group { margin-top:28px; scroll-margin-top:24px; }
+    .menu-group:target { outline:2px solid var(--bread); outline-offset:8px; }
+    .menu-group h3 { margin:0 0 16px; font-size:1.4rem; }
+    .products { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .product { overflow:hidden; border:1px solid #eadccc; border-radius:9px; background:#fffdf8; }
+    .product img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; }
+    .product-info { display:flex; flex-direction:column; align-items:flex-start; padding:16px; }
+    .product h4 { margin:0 0 8px; font-size:1.1rem; }
+    .product-price { margin:0; color:var(--red); font:700 1rem Arial,sans-serif; }
+    .menu-note { margin-top:14px !important; font-size:.9rem; }
+    .section-status { display:none; width:fit-content; margin:0 0 14px; padding:5px 9px; border-radius:20px; background:#f1e2cf; color:var(--red); font:700 .8rem Arial,sans-serif; }
+    :target > .section-status { display:block; }
+    .buy-status { margin-top:16px; padding:12px 16px; border-left:4px solid var(--bread); border-radius:5px; background:#f1e2cf; color:var(--ink); }
+    .buy-status:empty { display:none; }
+    dialog { width:min(440px,calc(100% - 32px)); padding:28px; border:1px solid #eadccc; border-radius:9px; color:var(--ink); background:var(--cream); }
+    dialog::backdrop { background:rgba(43,27,17,.6); }
+    dialog h2 { font-size:1.5rem; }
+    dialog p { line-height:1.5; }
+    .dialog-note { color:var(--muted); font-size:.9rem; }
+    .dialog-actions { display:flex; justify-content:space-between; gap:24px; margin-top:24px; }
+    .cancel-button { color:var(--red); background:#fffdf8; border-color:var(--red); }
+    .cancel-button:hover { background:#f1e2cf; }
+    .confirm-button { color:white; background:#356f4b; border-color:#356f4b; }
+    .confirm-button:hover { background:#28563a; }
+    footer { background:#3a281e; color:#fff8ed; padding:30px 24px; }
+    .foot { max-width:1120px; margin:auto; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; font: .92rem Arial,sans-serif; }
+    footer a { color:#fff8ed; }
+    @media(max-width:760px) { .top { align-items:flex-start; flex-direction:column; } nav { justify-content:flex-start; } .cards,.products { grid-template-columns:1fr; } .hero { min-height:380px; } }
+    @media(max-width:480px) { .dialog-actions { gap:12px; } .dialog-actions .action-button { padding:10px 12px; } }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } .card,.button,.action-button { transition:none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top">
+      <a class="brand" href="#inicio"><img src="img/ICONE.png" alt="Pãozinho da Vovó"></a>
+      <nav aria-label="Menu principal">
+        <a href="#cardapio">Cardápio</a>
+        <a href="#menu-doces">Doces</a>
+        <a href="#menu-salgados">Salgados</a>
+        <a href="#encomendas">Encomendas</a>
+        <a href="#contato">Contato</a>
+        <a href="#trabalhe">Trabalhe Conosco</a>
+        <a href="#conta">Conta</a>
+      </nav>
+    </div>
+  </header>
+  <section class="hero" id="inicio">
+    <div class="hero-inner">
+      <div class="eyebrow">Feito com carinho, todos os dias</div>
+      <h1>Um pedacinho de casa em cada mordida.</h1>
+      <p>Pães quentinhos, receitas de família e aquele cheirinho bom que dá vontade de ficar.</p>
+      <a class="button" href="#cardapio">Conheça nosso cardápio</a>
+    </div>
+  </section>
+  <main>
+    <div class="intro">
+      <h2>Bem-vindo à nossa padaria</h2>
+      <p>Na Pão &amp; Afeto, cada fornada é preparada com ingredientes selecionados e muito cuidado. Escolha algo gostoso e aproveite!</p>
+    </div>
+    <section class="cards" aria-label="Nossas opções">
+      <a class="card" href="#menu-doces"><div class="icon" aria-hidden="true">🍰</div><h3>Doces</h3><p>Bolos, tortas, sonhos e outras delícias para adoçar o seu dia.</p><span class="card-action">Ver opções &rarr;</span></a>
+      <a class="card" href="#menu-salgados"><div class="icon" aria-hidden="true">🥐</div><h3>Salgados</h3><p>Pães, empadas e salgados assados, sempre fresquinhos.</p><span class="card-action">Ver opções &rarr;</span></a>
+      <a class="card" href="#encomendas"><div class="icon" aria-hidden="true">🎂</div><h3>Encomendas</h3><p>Conte sua ocasião para a gente preparar algo especial.</p><span class="card-action">Saiba mais &rarr;</span></a>
+      <a class="card" href="#contato"><div class="icon" aria-hidden="true">💬</div><h3>Contato</h3><p>Fale com nossa equipe para tirar dúvidas ou fazer seu pedido.</p><span class="card-action">Ver contatos &rarr;</span></a>
+      <a class="card" href="#trabalhe"><div class="icon" aria-hidden="true">🤝</div><h3>Trabalhe Conosco</h3><p>Gosta de gente, de cozinha e de pão quentinho? Queremos conhecer você.</p><span class="card-action">Saiba mais &rarr;</span></a>
+      <a class="card" href="#conta"><div class="icon" aria-hidden="true">👤</div><h3>Conta</h3><p>Veja como funciona sua conta na padaria.</p><span class="card-action">Saiba mais &rarr;</span></a>
+    </section>
+    <section class="callout">
+      <h2>Tem festa chegando?</h2>
+      <p>Deixe os quitutes com a gente e aproveite cada momento.</p>
+      <a class="button" href="#encomendas">Fazer uma encomenda</a>
+    </section>
+    <section class="details" id="cardapio">
+      <span class="section-status" role="status">Você está no cardápio</span>
+      <h2>Cardápio</h2>
+      <p class="menu-note">Preços ilustrativos. Bolos inteiros, exceto onde indicado; salgados vendidos por unidade.</p>
+      <div class="menu-group" id="menu-doces">
+        <span class="section-status" role="status">Você está nos doces</span>
+        <h3>Doces</h3>
+        <div class="products">
+          <article class="product">
+            <img src="img/bolo.jpg" alt="Bolo de chocolate decorado com confeitos coloridos" loading="lazy">
+            <div class="product-info"><h4>Bolo KitKat inteiro</h4><p class="product-price">R$ 89,90</p><button class="action-button buy-button" type="button">Comprar</button></div>
+          </article>
+          <article class="product">
+            <img src="img/bolo3.jpg" alt="Fatia de bolo de chocolate com morangos" loading="lazy">
+            <div class="product-info"><h4>Fatia de chocolate com morango</h4><p class="product-price">R$ 14,00</p><button class="action-button buy-button" type="button">Comprar</button></div>
+          </article>
+          <article class="product">
+            <img src="img/images.jpg" alt="Bolo caseiro com café" loading="lazy">
+            <div class="product-info"><h4>Bolo caseiro inteiro</h4><p class="product-price">R$ 25,00</p><button class="action-button buy-button" type="button">Comprar</button></div>
+          </article>
+        </div>
+      </div>
+      <div class="menu-group" id="menu-salgados">
+        <span class="section-status" role="status">Você está nos salgados</span>
+        <h3>Salgados</h3>
+        <div class="products">
+          <article class="product">
+            <img src="img/salgado.jpg" alt="Coxinhas douradas" loading="lazy">
+            <div class="product-info"><h4>Coxinha (unidade)</h4><p class="product-price">R$ 8,00</p><button class="action-button buy-button" type="button">Comprar</button></div>
+          </article>
+          <article class="product">
+            <img src="img/salgado2.jpg" alt="Enroladinhos assados de presunto e queijo" loading="lazy">
+            <div class="product-info"><h4>Enroladinho de presunto e queijo (unidade)</h4><p class="product-price">R$ 9,00</p><button class="action-button buy-button" type="button">Comprar</button></div>
+          </article>
+          <article class="product">
+            <img src="img/salgado3.jpg" alt="Pães recheados com frango" loading="lazy">
+            <div class="product-info"><h4>Pão recheado de frango (unidade)</h4><p class="product-price">R$ 10,00</p><button class="action-button buy-button" type="button">Comprar</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <p class="buy-status" id="buy-status" role="status" aria-live="polite"></p>
+    <dialog id="buy-dialog" aria-labelledby="buy-dialog-title" aria-describedby="buy-question buy-note">
+      <h2 id="buy-dialog-title">Confirmar compra</h2>
+      <p id="buy-question"></p>
+      <p class="dialog-note" id="buy-note">Esta é uma demonstração; nenhum pedido será enviado.</p>
+      <div class="dialog-actions">
+        <button class="action-button cancel-button" id="cancel-buy" type="button">Cancelar</button>
+        <button class="action-button confirm-button" id="confirm-buy" type="button">Confirmar pedido</button>
+      </div>
+    </dialog>
+    <section class="details" id="encomendas">
+      <span class="section-status" role="status">Você está em encomendas</span>
+      <h2>Encomendas</h2>
+      <p>Bolos e quitutes para aniversários, reuniões e momentos especiais. Faça seu pedido pessoalmente na padaria.</p>
+    </section>
+    <section class="details" id="contato">
+      <span class="section-status" role="status">Você está em contato</span>
+      <h2>Fale com a gente</h2>
+      <p>Contatos fictícios para demonstração:</p>
+      <p><strong>E-mail:</strong> <a href="mailto:oi@paoeafeto.example">oi@paoeafeto.example</a><br>
+        <strong>Telefone:</strong> <a href="tel:+551100000000">(11) 0000-0000</a></p>
+    </section>
+    <section class="details" id="trabalhe">
+      <span class="section-status" role="status">Você está em trabalhe conosco</span>
+      <h2>Trabalhe Conosco</h2>
+      <p>Estamos sempre felizes em conhecer pessoas que gostam de cozinha e atendimento. Envie seu currículo para vagas@paoeafeto.example.</p>
+    </section>
+    <section class="details" id="conta">
+      <span class="section-status" role="status">Você está em conta</span>
+      <h2>Sua conta</h2>
+      <p>Em uma conta da padaria, você poderá acompanhar seus pedidos e guardar seus produtos favoritos.</p>
+    </section>
+  </main>
+  <footer>
+    <div class="foot"><span>© 2026 Padaria artesanal</span><span>Feito com carinho, servido quentinho.</span></div>
+  </footer>
+  <script>
+    const buyDialog = document.querySelector("#buy-dialog");
+    const buyQuestion = document.querySelector("#buy-question");
+    const buyStatus = document.querySelector("#buy-status");
+    let selectedProduct;
+
+    document.querySelectorAll(".buy-button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const product = button.closest(".product");
+        selectedProduct = {
+          name: product.querySelector("h4").textContent,
+          price: product.querySelector(".product-price").textContent
+        };
+        buyQuestion.textContent = `Tem certeza de que deseja comprar ${selectedProduct.name} por ${selectedProduct.price}?`;
+        buyStatus.textContent = "";
+        buyDialog.showModal();
+      });
+    });
+
+    document.querySelector("#confirm-buy").addEventListener("click", () => {
+      buyStatus.textContent = `Pedido de ${selectedProduct.name} confirmado por ${selectedProduct.price}. Demonstração: nenhum pedido foi enviado.`;
+      buyDialog.close();
+    });
+
+    function cancelPurchase() {
+      if (selectedProduct) {
+        buyStatus.textContent = `Compra de ${selectedProduct.name} cancelada.`;
+      }
+    }
+
+    document.querySelector("#cancel-buy").addEventListener("click", () => {
+      cancelPurchase();
+      buyDialog.close();
+    });
+
+    buyDialog.addEventListener("cancel", cancelPurchase);
+  </script>
+</body>
+</html>
